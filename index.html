@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Powered Document Editor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* For custom scrollbars to match the new themes */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    /* Light theme scrollbar */
+    ::-webkit-scrollbar-track { background: #f1f5f9; /* slate-100 */ }
+    ::-webkit-scrollbar-thumb { background: #94a3b8; /* slate-400 */ border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #64748b; /* slate-500 */ }
+    
+    /* Dark theme scrollbar */
+    html.dark ::-webkit-scrollbar-track { background: #18181b; /* zinc-900 */ }
+    html.dark ::-webkit-scrollbar-thumb { background: #52525b; /* zinc-600 */ }
+    html.dark ::-webkit-scrollbar-thumb:hover { background: #71717a; /* zinc-500 */ }
+  </style>
+  <script>
+    // Prevents theme flicker by applying theme from localStorage before React loads
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.21.0"
+  }
+}
+</script>
+</head>
+<body class="bg-slate-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-200">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
