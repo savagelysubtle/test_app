@@ -193,7 +193,7 @@ const App: React.FC = () => {
 
   const editorDashboard = (
     <div className="flex flex-grow min-h-0">
-      <aside className={`transition-all duration-300 ease-in-out overflow-hidden flex-shrink-0 ${isExplorerOpen ? 'w-80' : 'w-0'}`}>
+      <aside className={`transition-all duration-300 ease-in-out overflow-hidden flex-shrink-0 ${isExplorerOpen ? 'w-80' : 'w-0'} backdrop-blur-sm`}>
           <Explorer
             isOpen={isExplorerOpen}
             documents={documents}
@@ -204,7 +204,7 @@ const App: React.FC = () => {
             onDeleteDocument={handleDeleteDocument}
           />
       </aside>
-      <main className="flex-grow flex flex-col min-w-0 border-x border-slate-200/50 dark:border-zinc-800/50">
+      <main className="flex-grow flex flex-col min-w-0 shadow-2xl shadow-slate-200/50 dark:shadow-black/50">
         <Tabs
           openDocuments={openDocuments}
           activeDocumentId={activeDocumentId}
@@ -219,7 +219,7 @@ const App: React.FC = () => {
           theme={theme}
         />
       </main>
-      <aside className={`transition-all duration-300 ease-in-out overflow-hidden flex-shrink-0 ${isChatPanelOpen ? 'w-96' : 'w-0'}`}>
+      <aside className={`transition-all duration-300 ease-in-out overflow-hidden flex-shrink-0 ${isChatPanelOpen ? 'w-96' : 'w-0'} backdrop-blur-sm`}>
           <ChatPanel 
             isOpen={isChatPanelOpen}
             messages={chatMessages}
@@ -233,7 +233,7 @@ const App: React.FC = () => {
   );
 
   return (
-    <div className="h-screen w-screen flex flex-col font-sans overflow-hidden bg-slate-50 dark:bg-zinc-950">
+    <div className="h-screen w-screen flex flex-col font-sans overflow-hidden bg-gradient-to-br from-slate-50 via-slate-50 to-blue-50/30 dark:from-zinc-950 dark:via-zinc-950 dark:to-blue-950/20">
       <Header 
         isExplorerOpen={isExplorerOpen}
         isChatPanelOpen={isChatPanelOpen}

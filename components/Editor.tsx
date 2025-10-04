@@ -16,13 +16,13 @@ const AIActionToolbar: React.FC<{
   onAction: (action: AIAction) => void;
 }> = ({ position, onAction }) => (
   <div
-    className="absolute z-20 bg-zinc-900/90 backdrop-blur-sm text-white rounded-lg p-1 flex items-center space-x-1 shadow-xl"
+    className="absolute z-20 bg-zinc-900/95 backdrop-blur-md text-white rounded-xl p-2 flex items-center space-x-2 shadow-2xl border border-zinc-700/50 animate-in fade-in zoom-in-95 duration-200"
     style={{ top: position.top, left: position.left, transform: 'translateY(-100%)' }}
   >
-    <button title="Improve writing" onClick={() => onAction('improve')} className="px-3 py-1.5 text-sm hover:bg-zinc-700 rounded-md transition-colors">Improve</button>
-    <button title="Summarize selection" onClick={() => onAction('summarize')} className="px-3 py-1.5 text-sm hover:bg-zinc-700 rounded-md transition-colors">Summarize</button>
-    <button title="Fix spelling & grammar" onClick={() => onAction('fix')} className="px-3 py-1.5 text-sm hover:bg-zinc-700 rounded-md transition-colors">Fix Spelling</button>
-    <button title="Translate to English" onClick={() => onAction('translate')} className="px-3 py-1.5 text-sm hover:bg-zinc-700 rounded-md transition-colors">Translate</button>
+    <button title="Improve writing" onClick={() => onAction('improve')} className="px-3 py-2 text-sm font-medium hover:bg-zinc-700 rounded-lg transition-all duration-200 hover:scale-105">Improve</button>
+    <button title="Summarize selection" onClick={() => onAction('summarize')} className="px-3 py-2 text-sm font-medium hover:bg-zinc-700 rounded-lg transition-all duration-200 hover:scale-105">Summarize</button>
+    <button title="Fix spelling & grammar" onClick={() => onAction('fix')} className="px-3 py-2 text-sm font-medium hover:bg-zinc-700 rounded-lg transition-all duration-200 hover:scale-105">Fix Spelling</button>
+    <button title="Translate to English" onClick={() => onAction('translate')} className="px-3 py-2 text-sm font-medium hover:bg-zinc-700 rounded-lg transition-all duration-200 hover:scale-105">Translate</button>
   </div>
 );
 
@@ -105,12 +105,14 @@ const Editor: React.FC<EditorProps> = ({ document, onContentChange, onCreateDocu
   if (!document) {
     return (
       <div className="flex-grow flex flex-col items-center justify-center bg-white dark:bg-zinc-950 text-zinc-500 dark:text-zinc-600 p-8">
-        <LargeDocumentIcon className="w-32 h-32 mb-4 opacity-10" />
-        <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-200 mb-2">No document selected</h2>
-        <p className="text-zinc-600 dark:text-zinc-400 mb-6">Choose a document from the explorer or create a new one.</p>
+        <div className="mb-6 p-6 bg-gradient-to-br from-blue-50 to-slate-50 dark:from-blue-950/20 dark:to-zinc-900/20 rounded-3xl">
+            <LargeDocumentIcon className="w-32 h-32 opacity-20" />
+        </div>
+        <h2 className="text-3xl font-bold text-zinc-800 dark:text-zinc-200 mb-3">No document selected</h2>
+        <p className="text-zinc-600 dark:text-zinc-400 mb-8 text-center max-w-md">Choose a document from the explorer or create a new one to get started.</p>
         <button
           onClick={onCreateDocument}
-          className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500/50"
+          className="flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-8 py-3.5 rounded-xl shadow-xl shadow-blue-500/30 transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/40 focus:outline-none focus:ring-4 focus:ring-blue-500/50"
         >
           <PlusIcon className="w-5 h-5" />
           <span>Create New Document</span>
@@ -123,14 +125,14 @@ const Editor: React.FC<EditorProps> = ({ document, onContentChange, onCreateDocu
   const familyClasses = { sans: 'font-sans', serif: 'font-serif', mono: 'font-mono' };
 
   const textareaClasses = [
-    'flex-grow w-full h-full bg-transparent p-6 text-zinc-800 dark:text-zinc-200 resize-none focus:outline-none leading-relaxed placeholder:text-zinc-400 dark:placeholder:text-zinc-600',
+    'flex-grow w-full h-full bg-transparent p-8 text-zinc-800 dark:text-zinc-200 resize-none focus:outline-none leading-relaxed placeholder:text-zinc-400 dark:placeholder:text-zinc-600',
     fontClasses[userSettings.fontSize],
     familyClasses[userSettings.fontFamily],
     userSettings.wordWrap ? 'whitespace-pre-wrap' : 'whitespace-pre overflow-x-auto',
   ].join(' ');
 
   return (
-    <div className="flex-grow flex flex-col bg-white dark:bg-zinc-950 min-h-0">
+    <div className="flex-grow flex flex-col bg-white dark:bg-zinc-950 min-h-0 relative">
       <div className="flex-grow relative">
         {toolbarPosition && <AIActionToolbar position={toolbarPosition} onAction={handleAIAction} />}
         <textarea
@@ -140,14 +142,21 @@ const Editor: React.FC<EditorProps> = ({ document, onContentChange, onCreateDocu
           onChange={(e) => onContentChange(e.target.value)}
           onMouseUp={handleSelection}
           onScroll={() => setToolbarPosition(null)}
-          placeholder="Start typing..."
-          className={textareaClasses + ' absolute inset-0'}
+          placeholder="Start writing your document..."
+          className={textareaClasses + ' absolute inset-0 selection:bg-blue-200 selection:text-blue-900 dark:selection:bg-blue-800 dark:selection:text-blue-100'}
           disabled={isAILoading}
         />
         {isAILoading && (
-          <div className="absolute inset-0 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-sm flex flex-col items-center justify-center z-10">
-              <SparklesIcon className="w-10 h-10 text-blue-500 animate-pulse" />
-              <p className="mt-4 text-lg font-medium text-zinc-700 dark:text-zinc-300">Codex is thinking...</p>
+          <div className="absolute inset-0 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md flex flex-col items-center justify-center z-10">
+              <div className="p-6 bg-gradient-to-br from-blue-50 to-slate-50 dark:from-blue-950/30 dark:to-zinc-900/30 rounded-3xl shadow-2xl">
+                  <SparklesIcon className="w-16 h-16 text-blue-500 animate-pulse" />
+              </div>
+              <p className="mt-6 text-xl font-semibold text-zinc-700 dark:text-zinc-300">Codex is thinking...</p>
+              <div className="flex space-x-2 mt-4">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+              </div>
           </div>
         )}
       </div>

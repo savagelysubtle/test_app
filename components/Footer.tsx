@@ -7,10 +7,16 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ wordCount, charCount }) => {
   return (
-    <footer className="bg-white dark:bg-zinc-950 border-t border-slate-200/50 dark:border-zinc-800/50 px-4 py-1.5 text-xs h-8 flex items-center justify-end space-x-4 text-zinc-500 dark:text-zinc-400">
-      <span>{wordCount} words</span>
-      <div className="h-4 w-px bg-slate-200 dark:bg-zinc-700"></div>
-      <span>{charCount} characters</span>
+    <footer className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border-t border-slate-200/60 dark:border-zinc-800/60 px-6 py-2 text-xs flex items-center justify-end space-x-4 text-zinc-500 dark:text-zinc-400 font-medium shadow-sm">
+      <span className="flex items-center space-x-1.5">
+        <span className="text-zinc-400 dark:text-zinc-500">Words:</span>
+        <span className="text-zinc-700 dark:text-zinc-300 font-semibold">{wordCount}</span>
+      </span>
+      <div className="h-4 w-px bg-slate-300 dark:bg-zinc-700"></div>
+      <span className="flex items-center space-x-1.5">
+        <span className="text-zinc-400 dark:text-zinc-500">Characters:</span>
+        <span className="text-zinc-700 dark:text-zinc-300 font-semibold">{charCount}</span>
+      </span>
     </footer>
   );
 };

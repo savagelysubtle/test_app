@@ -77,13 +77,13 @@ const Explorer: React.FC<ExplorerProps> = ({
   };
 
   return (
-    <div className="bg-white/50 dark:bg-zinc-900/50 w-full h-full flex flex-col border-r border-slate-200/50 dark:border-zinc-800/50">
+    <div className="bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl w-full h-full flex flex-col border-r border-slate-200/60 dark:border-zinc-800/60">
       <div className={`p-4 flex flex-col h-full transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Explorer</h2>
-          <button 
+          <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Explorer</h2>
+          <button
             onClick={onCreateDocument}
-            className="p-1.5 text-zinc-500 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800 hover:text-zinc-800 dark:hover:text-white rounded-md transition-colors"
+            className="p-1.5 text-zinc-500 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800 hover:text-zinc-800 dark:hover:text-white rounded-lg transition-all duration-200 hover:scale-110"
             title="Create New Document"
           >
             <PlusIcon className="w-5 h-5" />
@@ -94,7 +94,7 @@ const Explorer: React.FC<ExplorerProps> = ({
           <input
             type="text"
             placeholder="Search files..."
-            className="w-full bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-md pl-9 pr-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-zinc-800 dark:text-zinc-200 placeholder:text-zinc-500 dark:placeholder:text-zinc-600"
+            className="w-full bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-700 rounded-lg pl-9 pr-3 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none text-zinc-800 dark:text-zinc-200 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 transition-all duration-200 shadow-sm"
           />
         </div>
         <div className="flex-grow overflow-y-auto -mr-2 pr-2">
@@ -110,21 +110,21 @@ const Explorer: React.FC<ExplorerProps> = ({
                                 value={renameValue}
                                 onChange={(e) => setRenameValue(e.target.value)}
                                 onBlur={() => setRenamingDocId(null)}
-                                className="w-full bg-white dark:bg-zinc-800 border border-blue-500 rounded-md px-2 py-1 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none text-zinc-800 dark:text-zinc-200"
+                                className="w-full bg-white dark:bg-zinc-800 border-2 border-blue-500 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-zinc-800 dark:text-zinc-200 shadow-lg"
                             />
                         </form>
                     ) : (
                         <button
                             onClick={() => onSelectDocument(doc.id)}
                             onContextMenu={(e) => handleRightClick(e, doc.id)}
-                            className={`w-full flex items-center space-x-2 px-3 py-2 text-left rounded-md text-sm transition-colors group relative
+                            className={`w-full flex items-center space-x-2.5 px-3 py-2.5 text-left rounded-lg text-sm transition-all duration-200 group relative hover:scale-[1.02]
                             ${selectedDocumentId === doc.id
-                                ? 'bg-blue-500/10 text-blue-800 dark:text-blue-300'
-                                : 'text-zinc-600 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-800/50'
+                                ? 'bg-gradient-to-r from-blue-500/20 to-blue-500/10 text-blue-700 dark:text-blue-300 shadow-sm border border-blue-200 dark:border-blue-800'
+                                : 'text-zinc-600 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-800/70 border border-transparent'
                             }`}
                         >
                             <SmallDocumentIcon className="w-4 h-4 flex-shrink-0" />
-                            <span className="truncate">{doc.name}</span>
+                            <span className="truncate font-medium">{doc.name}</span>
                         </button>
                     )}
                 </li>
@@ -143,13 +143,13 @@ const Explorer: React.FC<ExplorerProps> = ({
         <div
           ref={contextMenuRef}
           style={{ top: contextMenu.y, left: contextMenu.x }}
-          className="absolute z-50 w-40 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-md shadow-lg py-1"
+          className="absolute z-50 w-44 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl shadow-2xl py-1.5 animate-in fade-in zoom-in-95 duration-150"
         >
-          <button onClick={handleRename} className="w-full flex items-center space-x-2 px-3 py-2 text-sm text-left text-zinc-700 dark:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-800">
+          <button onClick={handleRename} className="w-full flex items-center space-x-2.5 px-3 py-2.5 text-sm text-left text-zinc-700 dark:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-lg mx-1 transition-colors">
             <PencilIcon />
             <span>Rename</span>
           </button>
-          <button onClick={handleDelete} className="w-full flex items-center space-x-2 px-3 py-2 text-sm text-left text-red-600 dark:text-red-500 hover:bg-red-500/10">
+          <button onClick={handleDelete} className="w-full flex items-center space-x-2.5 px-3 py-2.5 text-sm text-left text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg mx-1 transition-colors">
             <TrashIcon />
             <span>Delete</span>
           </button>
